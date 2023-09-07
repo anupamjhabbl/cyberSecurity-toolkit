@@ -4,5 +4,7 @@
 
 int registerYourFile(char* filename);
 int checkIntegrity(char* filename);
+int encrypt(char* filename);
+int decrypt(char* filename);
 
 #endif
