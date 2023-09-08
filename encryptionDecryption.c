@@ -2,16 +2,18 @@
 #include <string.h>
 #include <stdlib.h>
 
+// function to encrypt the file
 int encrypt(const char* filename){
-    // checking the file exists or not
-    FILE* fp = fopen(filename,"r");
+
+    // checking the file given exists or not
+    FILE* fp = fopen(filename,"r");   
     if (fp==NULL){
         printf("%s %s %s","The file",filename,"does not exist.\n");
         return 1;
     }
-    fclose(fp);
+    fclose(fp);  
 
-    // making the command
+    // making the command to encrypt the file
     char command[1000] = {0};
     char* precommand = "openssl enc -aes-128-cbc -md sha512 -pbkdf2 -iter 10000 -salt -in ";
     char* postcommand = " -out ";
@@ -46,9 +48,9 @@ int encrypt(const char* filename){
         command[mainIndex++] = filename[filenameIndex++];
     }
 
-    // running the command and storing encrypted file
-    int k = system(command);
-    if (k==0){
+    // running the command for encrypting the file and storing encrypted file
+    int successStatus = system(command);
+    if (successStatus==0){
         printf("Successfully stored an encrypted version of your file\n");
         return 0;
     }
@@ -58,8 +60,10 @@ int encrypt(const char* filename){
     }
 }
 
+// function to decrypt the file
 int decrypt(char* filename){
-    // checking the file exists or not
+
+    // checking the file given exists or not
     FILE* fp = fopen(filename,"r");
     if (fp==NULL){
         printf("%s %s %s","The file",filename,"does not exist.\n");
@@ -67,7 +71,7 @@ int decrypt(char* filename){
     }
     fclose(fp);
 
-
+    // making the command for decrypting the file
     char command[1000] = {0};
     char* precommand = "openssl enc -aes-128-cbc -md sha512 -pbkdf2 -in ";
     char* postcommand = " -out ";
@@ -101,9 +105,9 @@ int decrypt(char* filename){
     command[mainIndex++] = '-';
     command[mainIndex] = 'd';
     
-
-    int k = system(command);
-    if (k==0){
+    // running the command and decrypting the file given and storing the decrypted file
+    int successStatus = system(command);
+    if (successStatus==0){
         printf("Successfully stored an decrypted version of your file\n");
         return 0;
     }

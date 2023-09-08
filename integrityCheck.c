@@ -2,9 +2,10 @@
 #include <string.h>
 #include <stdlib.h>
 
+// function to register your file
 int registerYourFile(const char *filename)
 {
-    // let's check the file exist or not
+    // checking the file given exists or not
     FILE *fp = fopen(filename, "r");
     if (fp == NULL)
     {
@@ -13,7 +14,7 @@ int registerYourFile(const char *filename)
     }
     fclose(fp);
 
-    // command string making
+    // making the command to genrate hash of the file given
     char command[500] = {0};
     char *precommand = "openssl dgst -sha1 ";
     char *postcommand = " > filenameToHashTemp.txt";
@@ -48,17 +49,20 @@ int registerYourFile(const char *filename)
     if ((status1 || status2 || status3) == 0)
     {
         printf("Successfully registered your file\n");
+        return 0;
     }
     else
     {
         printf("Some error ocuured. Try again please");
+        return 1;
     }
-    return 0;
+    
 }
 
+// function to check the integrity
 int checkIntegrity(const char *filename)
 {
-    // let's check the file exist or not
+    // checking the file given exists or not
     FILE *fp = fopen(filename, "r");
     if (fp == NULL)
     {
@@ -67,7 +71,7 @@ int checkIntegrity(const char *filename)
     }
     fclose(fp);
 
-    // command string making
+    // making the command to generate the hash of the file given
     char command[500];
     char *precommand = "openssl dgst -sha1 ";
     char *postcommand = " > tempHash.txt";
@@ -91,8 +95,10 @@ int checkIntegrity(const char *filename)
         command[maincommandIndex++] = postcommand[postcommandIndex++];
     }
     
-    // Save the filename and their hash by running command
+    // Save the filename and their hash in tempHash.txt by running command
     int status = system(command);
+
+    // if command runs properly then compare from the hash of the file stored previously
     if (status == 0)
     {
         // Now compare from preexisting
@@ -102,6 +108,7 @@ int checkIntegrity(const char *filename)
             return 1;
         }
 
+        // reading the file "filenameToHash.txt" line by line and checking that filename matches with the given filename
         char hash[500];
         while (fgets(hash, 500, hashfile))
         {
@@ -118,20 +125,26 @@ int checkIntegrity(const char *filename)
                 temp[tempIndex++] = hash[mainIndex++];
             }
 
-            if (strcmp(temp,filename)==0)
+            if (strcmp(temp,filename)==0)   // filename found so now comapre the previously stored hash and currently generated hash  
             {
                 FILE *tempfile = fopen("/home/anupamjhabbl/Desktop/projects/cyberSecurityTollkit/tempHash.txt", "r");
                 char value[500];
                 fgets(value, 500, tempfile);
-                if (strcmp(value,hash)==0)
+                if (strcmp(value,hash)==0)  // both hash matches
                 {
                     printf("Your file is completely safe.\n");
+                    return 0;
+                }
+                else{
+                    printf("Your file is changed\n");
                     return 0;
                 }
                 fclose(tempfile);
             }
         }
-        printf("Your file is changed\n");
+
+        // file not found in registered files
+        printf("You had never registered this file\n");
         fclose(hashfile);
         return 0;
     }

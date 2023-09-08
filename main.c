@@ -21,10 +21,10 @@ int main(){
     // int success = decrypt("/home/anupamjhabbl/Desktop/projects/cyberSecurityTollkit/cybertool.ench");
     // printf("%d",success);
 
-    // int success = registerYourFile("/home/anupamjhabbl/Desktop/projects/cyberSecurityTollkit/cybertool.h");
+    // int success = registerYourFile("/home/anupamjhabbl/Desktop/projects/cyberSecurityTollkit/encryptionDecryption.c");
     // printf("%d",success);
 
-    int success = checkIntegrity("/home/anupamjhabbl/Desktop/projects/cyberSecurityTollkit/cybertool.h");
+    int success = checkIntegrity("/home/anupamjhabbl/Desktop/projects/cyberSecurityTollkit/encryptionDecryption.c");
     printf("%d",success);
 
     return 0;

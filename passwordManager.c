@@ -2,9 +2,10 @@
 #include <stdlib.h>
 #include <string.h>
 
+// function for saving the key paired with that file
 int savePassword(char* filename, char* password){
 
-    // making the command
+    // making the command to save the filename and key pair
     char command[600] = {'e','c','h','o',' '};
 
     int mainIndex = 5;
@@ -42,6 +43,7 @@ int savePassword(char* filename, char* password){
         fclose(fp);
     }
 
+    // running the commands to store the password
     int success1 = system(command);
     int success2 = system("cat passwordStore.txt >> passwordStoreTemp.txt");
     int success3 = system("cat passwordStoreTemp.txt > passwordStore.txt");
@@ -58,6 +60,7 @@ int savePassword(char* filename, char* password){
     }
 }
 
+// function to get the password of given filename
 int getPassword(char* filename){
     char value[500];
 
@@ -68,7 +71,7 @@ int getPassword(char* filename){
         return 1;
     }
 
-    while(fgets(value, 500, fp)){
+    while(fgets(value, 500, fp)){              // redaing the file line by line
         char fileinline[500] = {0};
         int mainIndex = 0;
         while(mainIndex<strlen(value)){
@@ -81,7 +84,7 @@ int getPassword(char* filename){
             mainIndex++;
         }
 
-        if (strcmp(fileinline, filename)==0){
+        if (strcmp(fileinline, filename)==0){        // filegiven found
             char password[100] = {0};
             mainIndex += 3;
             int passwordIndex = 0;

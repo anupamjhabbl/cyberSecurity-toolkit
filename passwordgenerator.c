@@ -3,27 +3,28 @@
 #include <time.h>
 #include <string.h>
 
+// function for generating password of single type
 void addType(char* password, int length, int type, int startIndex){
     switch(type){
-        case 1:
+        case 1:    // digits case
             srand((unsigned) time(NULL));
             for (int i=0;i<length;i++){
                 password[startIndex++] = '0'+(rand()%9);
             }
             break;
-        case 2:
+        case 2:    // capital alphabet case
             srand((unsigned) time(NULL));
             for (int i=0;i<length;i++){ 
                 password[startIndex++] = 'A'+(rand()%25);
             }
             break;
-        case 3:
+        case 3:   // small alphabet case
             srand((unsigned) time(NULL));
             for (int i=0;i<length;i++){
                 password[startIndex++] = 'a'+(rand()%25);
             }
             break;
-        case 4:
+        case 4:   // symbol case
             char* symbol = "!@#$*^";
             srand((unsigned) time(NULL));
             for (int i=0;i<length;i++){
@@ -35,12 +36,13 @@ void addType(char* password, int length, int type, int startIndex){
     }
 }
 
+// function for generating password
 void generatePassword(int length, char* password){
 
     // defining some orders
     int order[10][4] = {{1,2,3,4},{1,2,4,3},{1,3,2,4},{1,3,4,2},{1,4,3,2},{1,4,2,3},{2,3,4,1},{2,3,1,4},{4,3,2,1},{4,3,1,2}};
 
-    // generating random number
+    // generating random number to decide the pattern
     srand((unsigned) time(NULL));
     int k = rand()%10;
     
