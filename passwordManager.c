@@ -45,7 +45,7 @@ int savePassword(char* filename, char* password){
     int success1 = system(command);
     int success2 = system("cat passwordStore.txt >> passwordStoreTemp.txt");
     int success3 = system("cat passwordStoreTemp.txt > passwordStore.txt");
-    int success4 = system("echo made_empty > passwordStoreTemp.txt");
+    int success4 = system("echo > passwordStoreTemp.txt");
 
     int m = success1 || success2 || success3 ;
     if (m==0){

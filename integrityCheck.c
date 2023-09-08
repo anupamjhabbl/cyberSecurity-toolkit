@@ -37,6 +37,10 @@ int registerYourFile(const char *filename)
         command[maincommandIndex++] = postcommand[postcommandIndex++];
     }
 
+    // making confirm that filenameToHash.txt exists
+    FILE* fp2 = fopen("./filenameToHash.txt","a");
+    fclose(fp2);
+
     // Save the filename and their hash by running command omething
     int status1 = system(command);
     int status2 = system("cat filenameToHash.txt >> filenameToHashTemp.txt");
@@ -93,6 +97,10 @@ int checkIntegrity(const char *filename)
     {
         // Now compare from preexisting
         FILE *hashfile = fopen("/home/anupamjhabbl/Desktop/projects/cyberSecurityTollkit/filenameToHash.txt", "r");
+        if(hashfile==NULL){
+            printf("You have not registered any file\n");
+            return 1;
+        }
 
         char hash[500];
         while (fgets(hash, 500, hashfile))
