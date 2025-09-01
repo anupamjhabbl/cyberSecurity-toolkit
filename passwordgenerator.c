@@ -7,32 +7,42 @@
 void addType(char* password, int length, int type, int startIndex){
     switch(type){
         case 1:    // digits case
+        {
             srand((unsigned) time(NULL));
             for (int i=0;i<length;i++){
                 password[startIndex++] = '0'+(rand()%9);
             }
             break;
+        }
         case 2:    // capital alphabet case
+        {
             srand((unsigned) time(NULL));
             for (int i=0;i<length;i++){ 
                 password[startIndex++] = 'A'+(rand()%25);
             }
             break;
+        }
         case 3:   // small alphabet case
+        {
             srand((unsigned) time(NULL));
             for (int i=0;i<length;i++){
                 password[startIndex++] = 'a'+(rand()%25);
             }
             break;
+        }
         case 4:   // symbol case
+        {
             char* symbol = "!@#$*^";
             srand((unsigned) time(NULL));
             for (int i=0;i<length;i++){
                 password[startIndex++] = symbol[(rand()%5)];
             }
             break;
+        }
         default:
+        {
             printf("Some error occured. Rerun the program.\n");
+        }
     }
 }
 

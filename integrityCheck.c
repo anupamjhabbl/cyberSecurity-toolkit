@@ -102,7 +102,7 @@ int checkIntegrity(const char *filename)
     if (status == 0)
     {
         // Now compare from preexisting
-        FILE *hashfile = fopen("/home/anupamjhabbl/Desktop/projects/cyberSecurityTollkit/filenameToHash.txt", "r");
+        FILE *hashfile = fopen("filenameToHash.txt", "r");
         if(hashfile==NULL){
             printf("You have not registered any file\n");
             return 1;
@@ -127,7 +127,11 @@ int checkIntegrity(const char *filename)
 
             if (strcmp(temp,filename)==0)   // filename found so now comapre the previously stored hash and currently generated hash  
             {
-                FILE *tempfile = fopen("/home/anupamjhabbl/Desktop/projects/cyberSecurityTollkit/tempHash.txt", "r");
+                FILE *tempfile = fopen("tempHash.txt", "r");
+                if (tempfile == NULL) {
+                    printf("Temporary hash file not found.\n");
+                    return 1;
+                }
                 char value[500];
                 fgets(value, 500, tempfile);
                 if (strcmp(value,hash)==0)  // both hash matches

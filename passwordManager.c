@@ -65,7 +65,7 @@ int getPassword(char* filename){
     char value[500];
 
     // open the file passwordStore.txt
-    FILE* fp = fopen("./passwordStore.txt","r");
+    FILE* fp = fopen(filename,"r");
     if (fp==NULL){
         printf("No password stored here\n");
         return 1;
